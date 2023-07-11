@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: TransferContract
+    network: sepolia
+    source:
+      address: "0x34571ca171a712332bbc97e5d6fbef4a43cfd170"
+      abi: TransferContract
+      startBlock: 3869357
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - changeIdEvent
+        - changeNameEvent
+        - tranferEvent
+      abis:
+        - name: TransferContract
+          file: TransferContract\abis\TransferContract.json
+      eventHandlers:
+        - event: changeIdEvent(uint256)
+          handler: handlechangeIdEvent
+        - event: changeNameEvent(string)
+          handler: handlechangeNameEvent
+        - event: tranferEvent(address,address,uint256)
+          handler: handletranferEvent
+      file: TransferContract\TransferContract.wasm
